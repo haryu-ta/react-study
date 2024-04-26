@@ -19,9 +19,9 @@ const StyledButton = styled.button`
   padding: 0.5rem 0;
   margin: 0.5rem 1rem;
   width: 11rem;
-  border: ${({isSelected}) => isSelected ? "none" : "solid" };
-  background-color: ${({isSelected}) => isSelected ? "purple" : "" };
-  color: ${({isSelected}) => isSelected ? "white" : "black" };
+  border: ${({isselected}) => isselected ? "none" : "solid" };
+  background-color: ${({isselected}) => isselected ? "purple" : "" };
+  color: ${({isselected}) => isselected ? "white" : "black" };
 
   &:hover{
     opacity: 0.7;
@@ -52,6 +52,24 @@ function App() {
     width: "11rem",
     border: button1State ? "none" : "solid"
   }
+
+  // 非同期処理
+  const asyncFunc = async(val) => {
+    try{
+      const result = await new Promise((resolve,reject) => {
+        setTimeout(() => {
+          if(val){
+            resolve();
+          }else{
+            reject('is Done');
+          }
+        },2000);
+      });
+      alert('resolve');
+    }catch(e){
+      alert(`reject ${e}`)
+    }
+  }
   
   return (
     <>
@@ -70,7 +88,12 @@ function App() {
         {/* 将来廃止予定 */}
         <input type="button" value="CSS-Module" className={`${styles.btn} ${button3State ? styles.selected : ""}`} onClick={()=> setButton3State(prev => !prev)}/>
         {/* おすすめ */}
-        <StyledButton isSelected={button4State}  onClick={()=> setButton4State(prev => !prev)}>CSS-IN-JS</StyledButton>
+        <StyledButton isselected={button4State}  onClick={()=> setButton4State(prev => !prev)}>CSS-IN-JS</StyledButton>
+      </div>
+      <div>
+        <h2>非同期処理</h2>
+        <input type="button" value="非同期処理(resolve)" style={{"padding":"10px","margin":"10px"}} onClick={() => asyncFunc(true)} />
+        <input type="button" value="非同期処理(reject)" style={{"padding":"10px","margin":"10px"}} onClick={() => asyncFunc(false)} />
       </div>
     </>
   )
