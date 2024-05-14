@@ -2,6 +2,7 @@ import { useState } from 'react'
 import "./Example.css"
 import styles from "./Example.module.css"
 import styled from "styled-components";
+import Timer from './components/Timer'
 
 const btnSytle = {
   padding: "5px 10px",
@@ -38,8 +39,9 @@ function App() {
   const [button2State,setButton2State] = useState(false);
   const [button3State,setButton3State] = useState(false); 
   const [button4State,setButton4State] = useState(false); 
+  const [displayed,setDisplayed] = useState(false);
 
-    // インライン記法
+  // インライン記法
   // JavaScriptオブジェクトとして定義
   // 擬似クエリ使用不可
   // メディアクエリ使用不可
@@ -94,6 +96,17 @@ function App() {
         <h2>非同期処理</h2>
         <input type="button" value="非同期処理(resolve)" style={{"padding":"10px","margin":"10px"}} onClick={() => asyncFunc(true)} />
         <input type="button" value="非同期処理(reject)" style={{"padding":"10px","margin":"10px"}} onClick={() => asyncFunc(false)} />
+      </div>
+      <div>
+        <h2>useReducer</h2>
+      </div>
+      <div>
+        <h2>useContext</h2>
+      </div>
+      <div>
+        <h2>useEffect</h2>
+        <button onClick={ () => setDisplayed(prev => !prev)} style={{"marginBottom":"10px"}}>{displayed ? "非表示" : "表示"}</button>
+        {displayed ? <Timer/> : null }
       </div>
     </>
   )
