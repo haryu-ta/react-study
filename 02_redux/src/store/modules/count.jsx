@@ -10,7 +10,6 @@ const count = createSlice({
             return ++state;
         },
         minus(state,{payload}){
-            console.log(payload);
             return --state;
         }
     }

@@ -2,12 +2,13 @@ import { useSelector } from "react-redux";
 
 const Result = () => {
 
-    const num = useSelector(state => state);
+    // stateの利用
+    const count = useSelector(state => state.calc);
 
     return(
         <>
             <div>
-                <h2>Result:{num.calc}</h2>
+                <h2>Result:{count}</h2>
             </div>
         </>
     )

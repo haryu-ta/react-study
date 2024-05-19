@@ -3,10 +3,12 @@ import { plus,minus } from "../store/modules/count";
 
 const CommandButton = ({lang}) => {
 
+    // dispatchの利用
     const dispatch = useDispatch();
 
     const clickHandler = () => {
-        const action = lang === "+" ? plus({val:"1"}) : minus(1);
+        const action = lang === "+" ? plus({name:"itamura",gender:"male"}) : minus();
+        // dispatch実行
         dispatch(action);
     }
 
