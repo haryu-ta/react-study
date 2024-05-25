@@ -11,6 +11,8 @@ const objectiveState = createSlice({
         changeGender(state){
             const newGender = state.gender === "Male" ? "Female" : "Male";
             state.gender = newGender;
+            // Point!!
+            // immutableな値の場合にはreturnしてはいけない
         },
         changeStable(state,{payload}){
             state.stable = payload;

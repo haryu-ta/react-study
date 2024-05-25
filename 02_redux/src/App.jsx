@@ -1,6 +1,8 @@
 import Result from "./components/Result"
+import ResultAsync from "./components/ResultAsync"
 import ResultObject from "./components/ResultObject"
 import CommandButton from "./components/CommandButton"
+import CommandButtonAsync from "./components/CommandButtonAsync"
 import ChangeItems from "./components/ChangeItems"
 import store from "./store"
 import { Provider } from "react-redux"
@@ -18,6 +20,10 @@ const  App = () =>  {
           <hr></hr>
           <ResultObject/>
           <ChangeItems/>
+          <hr/>
+          <h3>非同期処理記載</h3>
+          <ResultAsync/>
+          <CommandButtonAsync/>
         </Provider>
       </div>
     </>

@@ -7,6 +7,8 @@ const count = createSlice({
     reducers: {
         plus(state,{payload}){
             console.dir(payload);
+            // Point!!
+            // mutableな値の場合にはreturnが必要
             return ++state;
         },
         minus(state,{payload}){

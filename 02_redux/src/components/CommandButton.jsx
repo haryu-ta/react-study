@@ -7,7 +7,7 @@ const CommandButton = ({lang}) => {
     const dispatch = useDispatch();
 
     const clickHandler = () => {
-        const action = lang === "+" ? plus({name:"itamura",gender:"male"}) : minus();
+        const action = lang === "+" ? plus({name:"itamura",gender:"Male"}) : minus(1);
         // dispatch実行
         dispatch(action);
     }
