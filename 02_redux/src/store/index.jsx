@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import count from "./modules/count"
 import count2 from "./modules/count2";
 import objectiveState from "./modules/objectiveState";
+import logger from "./middleware/logger"
 
 // reducerの定義
 export default configureStore({
@@ -12,5 +13,8 @@ export default configureStore({
         objects: objectiveState,
         // 非同期処理
         asyncCalc: count2
+    },
+    middleware: (getDefaultMiddleware) => {
+        return getDefaultMiddleware().concat(logger);
     }
 })

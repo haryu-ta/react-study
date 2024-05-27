@@ -14,7 +14,7 @@ const count2 = createSlice({
     }
 })
 
-// 非同期処理
+// 非同期処理（reducerを実行前に処理を付け加える）
 const asyncAdd = (payload) => {
     return async (dispatch,getStatus) => {
         const res = await Timer(payload);
