@@ -20,3 +20,18 @@
 @media (max-width : 500px) {
     .btn{border-radius: 0px;}
 }
+
+.content-light {
+    color: #000000;
+    background-color: #9dbdff;
+}
+
+.content-dark {
+    color: #ffffff;
+    background-color: #535353;
+}
+
+.content-red {
+    color: #ffffff;
+    background-color: #ff7373;
+}

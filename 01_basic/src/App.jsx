@@ -3,6 +3,8 @@ import "./Example.css"
 import styles from "./Example.module.css"
 import styled from "styled-components";
 import Timer from './components/Timer'
+import { useReducer } from 'react';
+import ContextTop from "./components/ContextTop"
 
 const btnSytle = {
   padding: "5px 10px",
@@ -33,6 +35,18 @@ const StyledButton = styled.button`
   }
 `;
 
+// reducer定義
+const reducer = (prev,{kbn,step}) => {
+  switch(kbn){
+    case "+":
+      return prev + Number(step);
+    case "-":
+      return prev - Number(step);
+    default:
+      throw new Error('不明なactionです。')
+  }
+}
+
 function App() {
   const [counter,setCounter] = useState(0);
   const [button1State,setButton1State] = useState(false); 
@@ -40,6 +54,9 @@ function App() {
   const [button3State,setButton3State] = useState(false); 
   const [button4State,setButton4State] = useState(false); 
   const [displayed,setDisplayed] = useState(false);
+
+  // useReducer(stateと変更メソッドを一体で定義)
+  const [rCount,dispatch] = useReducer(reducer,0);
 
   // インライン記法
   // JavaScriptオブジェクトとして定義
@@ -98,10 +115,18 @@ function App() {
         <input type="button" value="非同期処理(reject)" style={{"padding":"10px","margin":"10px"}} onClick={() => asyncFunc(false)} />
       </div>
       <div>
-        <h2>useReducer</h2>
+        <h2>useReducer（stateの管理と更新ロジックを一箇所にまとめられる）</h2>
+        <div style={{"border":"solid","width":"fit-content"}}>
+          <h4 style={{"margin":"1px"}}>Result:{rCount}</h4>
+          <button style={{"margin":"1px"}} onClick={() => dispatch({kbn:"+",step:"1"})}>+1</button>
+          <button style={{"margin":"1px"}} onClick={() => dispatch({kbn:"-",step:"1"})}>-1</button>
+          <button style={{"margin":"1px"}} onClick={() => dispatch({kbn:"+",step:"10"})}>+10</button>
+          <button style={{"margin":"1px"}} onClick={() => dispatch({kbn:"-",step:"10"})}>-10</button>
+        </div>
       </div>
       <div>
-        <h2>useContext</h2>
+        <h2>useContext（stateのバケツ渡し不要になる）</h2>
+        <ContextTop/>
       </div>
       <div>
         <h2>useEffect</h2>
