@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ChildCoponent from "./components/ChildConponent"
+import JsonTest from "./components/JsonTest"
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <>
       <ChildCoponent count={parentCount}/>
       <button onClick={clickHandler}>+</button>
+      <JsonTest/>
     </>
   )
 }
