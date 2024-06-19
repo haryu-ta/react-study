@@ -125,7 +125,7 @@ function App() {
         </div>
       </div>
       <div>
-        <h2>useContext（stateのバケツ渡し不要になる）</h2>
+        <h2>useContext（stateバケツ渡し不要になる）</h2>
         <ContextTop/>
       </div>
       <div>

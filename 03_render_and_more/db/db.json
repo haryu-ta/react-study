@@ -1,0 +1,97 @@
+{
+    "teams": [
+        {
+            "id": "1",
+            "team_name" : "U-NEXT Pirates",
+            "sponcer": "U-NEXT",
+            "members": [
+                {
+                    "id":"1-1",
+                    "name": "小林 剛",
+                    "gender": "男",
+                    "affliation": "麻将連合"
+                },
+                {
+                    "id": "1-2",
+                    "name": "瑞原 明奈",
+                    "gender": "女",
+                    "affliation": "最高位戦"
+                },
+                {
+                    "id": "1-3",
+                    "name": "鈴木 優",
+                    "gender": "男",
+                    "affliation": "最高位戦"
+                },
+                {
+                    "id": "1-4",
+                    "name": "仲林 圭",
+                    "gender": "男",
+                    "affliation": "協会"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "team_name" : "赤坂ドリブンズ",
+            "sponcer": "博報堂",
+            "members": [
+                {
+                    "id":"2-1",
+                    "name": "園田 賢",
+                    "gender": "男",
+                    "affliation": "最高位戦"
+                },
+                {
+                    "id": "2-2",
+                    "name": "鈴木 たろう",
+                    "gender": "男",
+                    "affliation": "最高位戦"
+                },
+                {
+                    "id": "2-3",
+                    "name": "渡辺 太",
+                    "gender": "男",
+                    "affliation": "最高位戦"
+                },
+                {
+                    "id": "2-4",
+                    "name": "浅見 真紀",
+                    "gender": "男",
+                    "affliation": "最高位戦"
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "team_name" : "角川サクラナイツ",
+            "sponcer": "KADOKAWA",
+            "members": [
+                {
+                    "id":"3-1",
+                    "name": "内川 幸太郎",
+                    "gender": "男",
+                    "affliation": "連盟"
+                },
+                {
+                    "id": "3-2",
+                    "name": "岡田 紗佳",
+                    "gender": "女",
+                    "affliation": "連盟"
+                },
+                {
+                    "id": "3-3",
+                    "name": "堀 慎吾",
+                    "gender": "男",
+                    "affliation": "協会"
+                },
+                {
+                    "id": "3-4",
+                    "name": "渋川 難波",
+                    "gender": "男",
+                    "affliation": "協会"
+                }
+            ]
+        }
+    ]
+}
