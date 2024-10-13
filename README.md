@@ -1,3 +1,8 @@
+# まとめ
+- [ReactHook](https://github.com/haryu-ta/react-study/blob/main/01_basic/README.md)
+- [redux](https://github.com/haryu-ta/react-study/blob/main/02_redux/README.md)
+
+
 # 実行
 ```
 npm run dev

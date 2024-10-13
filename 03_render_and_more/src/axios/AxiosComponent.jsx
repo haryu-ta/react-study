@@ -4,7 +4,7 @@ import axios from "axios"
 const AxiosComponent = () => {
 
     const [data,setData] = useState([]);
-    const [res,setRes] = useState([]);
+    // const [res,setRes] = useState([]);
 
     useEffect(() => {
         const response = [ 
