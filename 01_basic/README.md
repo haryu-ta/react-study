@@ -160,3 +160,109 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ```javascript
 const { user,login,logout } = useContexts()!; 
 ```
+
+## useCallback/useMemo/React.memo
+
+- 用途
+  - メモ化して不要なレンダリングを防ぐ
+    - React.memo
+      - propsに引き渡される値に変更がないとレンダリングされない
+    - useMemo
+      - レンダーする際に計算結果をキャッシュする
+      - 処理の再計算に条件をつける
+    - useCallback
+      - レンダーする際に関数定義をキャッシュする
+      - 関数の再定義に条件をつける
+
+---
+
+**React.memo**
+
+```javascript
+const Parent = () => {
+  const [ val,setVal ] = useState<number>(0);
+  const [ count,setCount ] = useState<number>(0);
+
+  return (
+    <>
+      <input type="button" value="+" onClick={() => setVal((prev) => ++prev);}/>
+      <p>{val}</p>
+      <Child />
+      <Child2 count={count}/>
+    </number>
+  )
+}
+
+// 親のレンダリングで関係のない子コンポーネントのレンダリングを抑止
+const Child = memo(() => {
+  return (
+    <div>
+      <hr/>
+      <p>子コンポーネント</p>
+    </div>
+  )
+});
+
+// 渡すpropsに変更がない限りはレンダリング抑止
+const Child2 = memo(({count}:{count:number}) => {
+    <div>
+      <hr/>
+      <p>{count}</p>
+    </div>
+})
+
+```
+
+**useMemo**
+
+```javascript
+const Parent = () => {
+  const [ val,setVal ] = useState<number>(0);
+  const [ name,setName ] = useState<string>("");
+
+  // 重い処理がある関数
+  const calc = () => {
+    return val * 2
+  }
+
+  // nameが変更になる度に再計算されるためメモ化
+  const doubleVal = useMemo(() => calc(),[val]);
+
+  return (
+    <div>
+      <input type="text"  onClick={(e) => setName(e.target.value)}>
+      <input type="button" value="calc" onClick={() => setVal((prev) => ++prev;)}>
+      <p>{val}</p>
+      <p>{doubleVal}</p>
+    </div>
+  )
+}
+```
+
+**useCallback**
+
+```javascript
+const Parent = () => {
+  const [ word,setWord ] = useState<string>("");
+  const [ count,setCount ] = useState<number>(0);
+  
+  // 親コンポーネントレンダー時に毎回再作成されることを防ぐ
+  const handle = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
+    setWord(e.target.value);
+  },[]);
+
+  <input type="button value="+" onClick={() => setCount((pre) => ++ prev);}>
+  <Child handler={handle}/>
+}
+
+// props自体はの値は変更されないが、
+// 関数が毎回作り直されて別物と判定されるためレンダリング対象となるため
+// useCallbackで関数の再作成を抑止する
+const Child = memo(({handler}:{handler:React.ChangeEvent<HTMLInputElement>} => void ) => {
+  return (
+    <>
+      <input type="text" onChange={handler}>
+    </>
+  )
+} 
+```
