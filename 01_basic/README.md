@@ -266,3 +266,78 @@ const Child = memo(({handler}:{handler:React.ChangeEvent<HTMLInputElement>} => v
   )
 } 
 ```
+
+## useOptimistic
+
+- 用等
+  - UIを楽観的に更新するためのHook
+  - https://ja.react.dev/reference/react/useOptimistic
+  
+**注意**
+特定VerのReactでないと動かない
+
+```ksh
+# useOptimisticを使うために必要
+npm i --legacy-peer-deps react-dom@18.3.0-canary-6db7f4209-20231021
+npm i  react@18.3.0-canary-6db7f4209-20231021
+```
+
+```javascript
+type Message = {
+  id : number,
+  message : string,
+  isLoadin: boolean
+}
+
+const Form = () => {
+
+  // 楽観更新対象のstateを定義
+  const [ messages,setMessages ] = useState<Message>({id:1,message:"Hello",isLoading:false});
+
+  // submit処理
+  const handler = aync (formData:Formdata) => {
+      const sendMessage = formData.get("message") as string;
+      // 楽観更新実施
+      addOptimistic(sendMessage);
+      // 遅い処理
+      const responseMessage:Promise<string> = awai delayOperate(sendMessage);
+      // 最終更新処理
+      setMessage((prev) => {
+        [
+          ...prev,
+          {id:prev.length + 1,text: responseMessage,isLoading:false}
+        ]
+      });
+  }
+
+  // 楽観更新のための処理(第一引数：楽観更新対象のstate,第二引数:更新関数)
+  // 第二引数の関数内でcurrentStateにoptimisticValueを反映した結果を返却する
+  // optimisticValue : addOptimisticの引数に渡した値が格納される
+  const [optimisticState,addOptimistic] = useOptimitic(messages,(currentState:Message[],optimisticValue:string) => {
+    return (
+      // 楽観更新の結果を返却 → optimisticStateに格納される
+      [
+        ...currentState,
+        {id:currentState.length + 1,text: optimisticValue,isLoading:true}
+      ]
+    )
+  })
+
+  returm (
+    <div>
+      <form action={handle}>
+      <input type="text" name="message"/>
+      <button type="submit">送信</button>
+    </div>
+    <hr/>
+    // 楽観更新結果を表示
+    {optimisticState.map((message:Message) => {
+      return (
+        <div key={message.id}>
+          {message.text}{message.isLoading ?? "(Loading...)"}
+        </div>
+      )
+    })}
+  )
+}
+```
