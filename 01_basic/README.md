@@ -341,3 +341,39 @@ const Form = () => {
   )
 }
 ```
+
+## useTrasition
+
+- 用途
+  - UIをブロックせずにstateを更新するためのHook
+    - 連続で押下された場合に、途中の押下の操作をキャンセルし最後の操作のみを有効にする
+    - ページネーションの連続押しなどに有効
+    - https://ja.react.dev/reference/react/useTransition
+
+```javascript
+const Top = () => {
+  const [tab,setTab] = useState("1");
+  const [isLoading,startTrasition] = useTrasition();
+
+  const handler = (tabName: string) {
+    // トラジションをマーク
+    startTrasition(() => {
+      setTab(tabName)
+    })
+
+    return (
+      <>
+        <div>
+          <input type="button" value="1" onClick={() => handler("1")}/>
+          <input type="button" value="2" onClick={() => handler("2")}/>
+          <input type="button" value="3" onClick={() => handler("3")}/>
+        </div>
+        <hr/>
+        {tab === "1" && <First/>}
+        {tab === "2" && <Second/>}
+        {tab === "3" && <Third/>}
+      </>
+    )
+  }
+}
+```
