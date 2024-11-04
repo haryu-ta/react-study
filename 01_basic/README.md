@@ -26,8 +26,9 @@ useEffect(() => {
 
 ## useRef
 - 用途
-  - レンダー時に不要な値を参照する
+  - レンダーを跨いで情報を保存できます
   - dom操作したい時に利用
+  - https://ja.react.dev/reference/react/useRef
 
 ```javascript
 const refElement = useRef<HTMLUListElement>(null);
@@ -377,3 +378,181 @@ const Top = () => {
   }
 }
 ```
+
+## useDefferedValue
+
+- 用途
+  - UIの一部の更新を遅延させる
+    - 指定したstateのコピーを保持し、こちらのstateは連続入力時に更新を遅延させることで
+    レンダー回数を減少させることでUX改善やパフォーマンス向上に繋げる
+    - https://ja.react.dev/reference/react/useDeferredValue
+
+```javascript
+const SearchPage = () => {
+  const [word,setWord] = useState("");
+  const deferredValue = useDeferredValue(word);  
+
+  return (
+    <div>
+      <label>
+        検索
+        <input 
+          type="text" 
+          value={word} 
+          onClick={(e) => setWord(e.target.value) } 
+          style={word !== deferredValue ? {"backgroundColor":"gray"} : {"backgroundColor":"white"} }
+        />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <Result query={deferredValue}/>
+        </Suspense>
+      </label>
+    </div>
+  )
+}
+```
+
+## useId
+
+- 用途
+  - アクセシビリティ属性に渡すことができる一意の ID を生成するためのフック
+  - key属性のidとして使用してはいけない
+  - https://ja.react.dev/reference/react/useId#usage
+
+```javascript
+const Page = () => {
+  return (
+    <>
+      <FormField name="Firstname" />
+      <FormField name="LastName" />
+    </>
+  )
+}
+
+const FormField = ({name:string}) => {
+  const itemid = useId();
+    return (
+      <div>
+        <label htmlFor={itemid}>{name}</label>
+        <input type="text" id={itemid} />
+      </div>
+  )
+}
+```
+
+## useImperativeHandle
+
+- 用途
+  - ref として公開されるハンドルをカスタマイズするための React フックです。
+  - https://ja.react.dev/reference/react/useImperativeHandle
+
+```javascript
+type handlerRef = {
+    focus(): void
+    scrollLast():void
+    scrollTop():void
+}
+
+const TestPage = () => {
+    // 子コンポーネントから参照を受け取るRef
+    const ref = useRef<handlerRef>(null);
+
+    const clickFocus = () => {
+      // 子コンポーネントで定義したイベントを実行
+      ref.current?.focus();
+    }
+
+    const clickScroll = () => {
+      // 子コンポーネントで定義したイベントを実行
+      ref.current?.scrollTop();
+    }
+
+    const clickScrollBottm = () => {
+      // 子コンポーネントで定義したイベントを実行
+      ref.current?.scrollLast();
+      ref.current?.focus();
+    }
+    
+    return (
+        <>
+            <SecondPage ref={secondRef}/>
+            <hr/>
+            <input type="button" value="focus" onClick={clickFocus}/>
+            <br/>
+            <input type="button" value="scrollTop" onClick={clickScroll}/>
+            <br/>
+            <input type="button" value="scrollBottom" onClick={clickScrollBottm}/>
+        </>
+    )
+}
+
+// prposは使わなくても定義が必要
+const SecondPage = forwardRef<handlerRef>((props,ref) => {
+
+    const textRef = useRef<HTMLTextAreaElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    // 親から受け取ったrefに対してイベントを定義
+    useImperativeHandle(ref,() => ({
+        focus: () => {
+            inputRef.current!.focus();
+        },
+        scrollLast: () => {
+            const node = textRef.current;
+            node!.scrollTop = node!.scrollHeight; 
+        },
+        scrollTop : () => {
+            const node = textRef.current;
+            node!.scrollTop = 0;
+        }
+    }),[]);
+
+    return (
+        <>
+            <textarea rows={4} cols={50} value={inputText()} ref={textRef}/>
+            <br/>
+            <input type="text" ref={inputRef}/>
+        </>
+    )
+});
+```
+
+## useForm
+
+- 用途
+  - Formの入力チェックなどの処理が簡単に実装可能
+  - [react-hook-formを使用](https://react-hook-form.com/docs/useform)
+  - [参照](https://reffect.co.jp/react/react-hook-form)
+  - [参照2](https://qiita.com/Nozomuts/items/60d15d97eeef71993f06)
+
+## useReducer
+
+- 用途
+  - stateの管理と更新処理を一体にして管理する
+
+```javascript
+
+const reduce = (prev: number,action: {type: "increment"|"decrement"|"reset"}):number => {
+  switch(action.type){
+    case "increment":
+      return ++prev;
+    case "decrement":
+      return --prev;
+    case "reset":
+      return 0;
+  }
+}
+
+const Page:React.FC = () => {
+  const [ count,dispatch ] = useReducer(reducer,0);
+  return (
+    <div>
+      <p>{count}</p>
+      <input type="button" value="+" onClick={() => dispatch({type:"increment"});}/>
+      <input type="button" value="-" onClick={() => dispatch({type:"decrement"});}/>
+    </div>
+  )
+}
+```
+
+## useSyncExternalStore
+## useLayoutEffect
