@@ -1,3 +1,5 @@
+typescriptバージョンは「05_redux_shoping_app」参照
+
 1. Providerの定義
 
 ```javascript
@@ -17,7 +19,7 @@ import { configureStore } from "@reduxjs/toolkit";
 // reducerの定義
 export default configureStore({
     reducer : {
-        calc : count,
+        calc : count,  // createSliceの変数名
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware().concat(logger);
@@ -25,7 +27,7 @@ export default configureStore({
 })
 ```
 
-3. state定義
+3. reducer定義
 
 ```javascript
 import { createSlice } from "@reduxjs/toolkit";
@@ -52,13 +54,16 @@ export default count.reducer;
 4. stateの使用
    
 ```javascript
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { plus,minus } from "../store/modules/count";
 
 const CommandButton = ({lang}) => {
 
     // dispatchの利用
     const dispatch = useDispatch();
+
+    // stateの取得
+    const {state} = useSelector((store) => store.calc)  //configureStoreのreducersのキー名
 
     const clickHandler = () => {
         const action = lang === "+" ? plus(1) : minus(1);

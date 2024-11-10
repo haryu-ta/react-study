@@ -20,3 +20,10 @@ Currently, two official plugins are available:
 
 # 作成
 npm create vite@latest
+
+# Reduxの使い方
+
+1. Prividerの定義
+2. storeの定義（configureStore）
+3. reducer/stateの定義 （createSlice）
+4. 使用箇所でuseSelector/useDispatch

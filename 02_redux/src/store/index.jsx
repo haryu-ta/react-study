@@ -5,6 +5,7 @@ import objectiveState from "./modules/objectiveState";
 import logger from "./middleware/logger"
 
 // reducerの定義
+// eslint-disable-next-line react-refresh/only-export-components
 export default configureStore({
     reducer : {
         // 単純state
