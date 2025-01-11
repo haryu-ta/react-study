@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import CartReducer from "../features/cart/CartSlice";
-import PersonReducer from "../features/cart/personSlice";
+import PersonReducer from "../features/cart/PersonSlice";
 import ModalReducer from "../features/modal/ModalSlice";
 
 // 複合バージョン

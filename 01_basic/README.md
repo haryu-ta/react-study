@@ -30,6 +30,27 @@ useEffect(() => {
   - dom操作したい時に利用
   - https://ja.react.dev/reference/react/useRef
 
+### レンダーを跨いだ情報保存
+```javascript
+const Counter = () => {
+  const ref = useRdf(0);
+
+  const handleClick = () {
+    ref.current = ref.current + 1;
+    alert(ref.current);
+  }
+
+  return (
+    <button onClick={handleClick}>
+      click
+    </button>
+  );
+}
+```
+<b>JSX 内で {ref.current} を表示すると、クリックしても回数の表示は更新されません。これは、ref.current に新しい値を設定しても、再レンダーがトリガされないためです。レンダーに利用したい値は、代わりに state に保存してください。</b>
+
+### DOM操作の例
+
 ```javascript
 const refElement = useRef<HTMLUListElement>(null);
 
@@ -74,7 +95,7 @@ return (
 ```
 
 ```javascript
-const FormField = forwardRef<HTMLInputElement, inputForm>((props, ref) => {
+const FormField = forwardRef<HTMLInputElement>((props, ref) => {
     return (
         <>
             <label>

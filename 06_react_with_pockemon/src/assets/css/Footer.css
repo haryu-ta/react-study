@@ -1,0 +1,29 @@
+.Footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    height: 65px;
+    margin-top: 20px;
+}
+
+.Footer > input[type="button"] {
+    background-color: rgb(139, 94, 180);
+    color: white;
+    font-size: medium;
+    width:fit-content;
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: none;
+}
+
+.Footer > input[type="button"]:first-child {
+    margin-right:30px;
+}
+
+.Footer > input[type="button"]:disabled {
+    background-color: rgba(219, 216, 221, 0.644);
+    color: black;
+}
+
