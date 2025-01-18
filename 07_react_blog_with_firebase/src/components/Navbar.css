@@ -1,0 +1,19 @@
+.navbar {
+    width: 100%;
+    background-color: rgb(235, 180, 93);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    height: 60px;
+    gap: 45px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: blueviolet;
+}

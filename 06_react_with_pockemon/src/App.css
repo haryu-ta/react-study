@@ -11,3 +11,9 @@
   gap: 20px;
   margin-top: 50px;
 }
+
+.loading {
+  margin-top: 50px;
+  font-size: 40px;
+  color: red;  
+}

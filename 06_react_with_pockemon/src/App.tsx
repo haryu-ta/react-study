@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
 import "./assets/css/Footer.css";
 import { apiResultType, apiType, detailType } from './type/type';
@@ -38,6 +38,7 @@ function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [nextURL,setNextURL] = useState<string>("");
   const [prevURL,setPrevURL] = useState<string|null>(null);
+  const urlRef = useRef<string>("");
   
   const getPockemonData =  async (url:string) => {
     await waitTimer(1500);
@@ -47,6 +48,9 @@ function App() {
     const datas: detailType[] = await getPockemonDetail(dataSet.results);
     setResults(datas);
     setLoading(false);
+
+    // 値を設定(レンダリングしないので問題なし)
+    urlRef.current = dataSet.next;
   }
 
   useEffect(() => {
@@ -62,6 +66,7 @@ function App() {
     setLoading(true);
     await getPockemonData(nextURL);
     window.scrollTo(0,0);
+    console.log(urlRef.current);
   }
 
   const prevPage = async () => {
@@ -77,7 +82,10 @@ function App() {
       <Navbar />
       <div className='App'>
         {loading ?
-          <h1>Now Loading...</h1> :
+          <div className="loading">
+            <h1>Now Loading...</h1> 
+          </div>
+          :
           <div>
             <div className="pokemonCardContainer">
               {results.map((pokemon) => (
